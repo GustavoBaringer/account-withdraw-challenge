@@ -81,11 +81,11 @@ class ProcessScheduledWithdrawsCrontab
                 'SELECT id FROM account_withdraw
                  WHERE scheduled = 1
                    AND done = 0
-                   AND scheduled_for <= NOW()
+                   AND scheduled_for <= ?
                  ORDER BY scheduled_for ASC
                  LIMIT ?
                  FOR UPDATE SKIP LOCKED',
-                [self::BATCH_SIZE]
+                [date('Y-m-d H:i:s'), self::BATCH_SIZE]
             );
 
             return array_column($rows, 'id');
