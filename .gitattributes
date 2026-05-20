@@ -1,0 +1,5 @@
+# Force LF line endings for shell scripts (prevents CRLF issues on Windows Docker builds)
+*.sh text eol=lf
+
+# Default behavior
+* text=auto
