@@ -1,0 +1,65 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: tecnofit_app
+    restart: unless-stopped
+    ports:
+      - "9501:9501"
+    environment:
+      APP_NAME: ${APP_NAME:-tecnofit-challenge}
+      APP_ENV: ${APP_ENV:-dev}
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: ${DB_DATABASE:-tecnofit}
+      DB_USERNAME: ${DB_USERNAME:-tecnofit}
+      DB_PASSWORD: ${DB_PASSWORD:-secret}
+      MAIL_HOST: mailhog
+      MAIL_PORT: 1025
+      MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS:-noreply@tecnofit.com}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME:-Tecnofit}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - tecnofit
+
+  mysql:
+    image: mysql:8.0
+    container_name: tecnofit_mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootsecret}
+      MYSQL_DATABASE: ${DB_DATABASE:-tecnofit}
+      MYSQL_USER: ${DB_USERNAME:-tecnofit}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-rootsecret}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - tecnofit
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: tecnofit_mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - tecnofit
+
+networks:
+  tecnofit:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local

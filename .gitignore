@@ -1,0 +1,6 @@
+vendor/
+runtime/
+.env
+.phpunit.result.cache
+storage/framework/
+storage/logs/

@@ -1,0 +1,72 @@
+{
+    "name": "tecnofit/challenge",
+    "type": "project",
+    "description": "Tecnofit Challenge - Digital Account with PIX Withdrawal",
+    "keywords": ["hyperf", "pix", "digital-account"],
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1",
+        "hyperf/cache": "~3.1.0",
+        "hyperf/command": "~3.1.0",
+        "hyperf/config": "~3.1.0",
+        "hyperf/crontab": "~3.1.0",
+        "hyperf/database": "~3.1.0",
+        "hyperf/db-connection": "~3.1.0",
+        "hyperf/di": "~3.1.0",
+        "hyperf/dispatcher": "~3.1.0",
+        "hyperf/engine": "~2.10.0",
+        "hyperf/exception-handler": "~3.1.0",
+        "hyperf/framework": "~3.1.0",
+        "hyperf/http-server": "~3.1.0",
+        "hyperf/logger": "~3.1.0",
+        "hyperf/model-cache": "~3.1.0",
+        "hyperf/process": "~3.1.0",
+        "hyperf/server": "~3.1.0",
+        "hyperf/utils": "~3.1.0",
+        "hyperf/validation": "~3.1.0",
+        "symfony/mailer": "^6.3",
+        "ramsey/uuid": "^4.7"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "hyperf/devtool": "~3.1.0",
+        "hyperf/testing": "~3.1.0",
+        "mockery/mockery": "^1.0",
+        "phpunit/phpunit": "^10.0",
+        "swoole/ide-helper": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "HyperfTest\\": "test/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "hyperf/hyperf-component-installer": true
+        }
+    },
+    "extra": {
+        "hyperf": {
+            "config": "Hyperf\\Database\\Commands\\Migrations\\MigrateCommand"
+        }
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "test": "co-phpunit --colors=always",
+        "test-unit": "co-phpunit --colors=always --testsuite Unit",
+        "test-feature": "co-phpunit --colors=always --testsuite Feature",
+        "cs-fix": "php-cs-fixer fix $1"
+    }
+}

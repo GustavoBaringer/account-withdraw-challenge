@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+         bootstrap="test/bootstrap.php"
+         colors="true"
+         stopOnFailure="false">
+    <testsuites>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./test/Unit</directory>
+        </testsuite>
+        <testsuite name="Feature">
+            <directory suffix="Test.php">./test/Feature</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory suffix=".php">./app</directory>
+        </include>
+    </source>
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="DB_DRIVER" value="mysql"/>
+        <env name="DB_HOST" value="mysql"/>
+        <env name="DB_PORT" value="3306"/>
+        <env name="DB_DATABASE" value="tecnofit_test"/>
+        <env name="DB_USERNAME" value="tecnofit"/>
+        <env name="DB_PASSWORD" value="secret"/>
+        <env name="MAIL_HOST" value="mailhog"/>
+        <env name="MAIL_PORT" value="1025"/>
+        <env name="CRONTAB_ENABLE" value="false"/>
+        <env name="SCAN_CACHEABLE" value="false"/>
+    </php>
+</phpunit>
